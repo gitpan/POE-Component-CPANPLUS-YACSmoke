@@ -6,7 +6,7 @@ use POE qw(Wheel::Run);
 use Storable;
 use vars qw($VERSION);
 
-$VERSION = '1.32';
+$VERSION = '1.34';
 
 my $GOT_KILLFAM;
 
@@ -185,7 +185,7 @@ sub _command {
     }
     else {
 	my $perl = $args->{perl} || $self->{perl} || $^X;
-	my $code = 'my $smoke = CPANPLUS::YACSmoke->new(); print "$_\n" for $smoke->{plugin}->download_list();';
+	my $code = 'my $smoke = CPANPLUS::YACSmoke->new(); print "$_\n" for $smoke->_download_list();';
 	$args->{program} = [ $perl, '-MCPANPLUS::YACSmoke', '-e', $code ];
     }
   }

@@ -23,4 +23,4 @@ requires:
   POE::Wheel::Run: 0
   Storable: 0
   perl: 5.000
-version: 1.32
+version: 1.34
