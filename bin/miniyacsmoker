@@ -10,7 +10,7 @@ $|=1;
 my ($perl, $jobs, $appdata, $indices, $version, $reverse, $package, $author, $nogrpkill, $logdir);
 my $debug = 0;
 
-GetOptions( 'perl=s' => \$perl, 'jobs=s' => \$jobs, 'debug' => \$debug, 'appdata' => \$appdata, 'indices' => \$indices, 'version' => \$version, 'reverse' => \$reverse, 'author=s' => \$author, 'package=s' => \$package, 'nogrpkill' => \$nogrpkill, 'logdir' => \$logdir );
+GetOptions( 'perl=s' => \$perl, 'jobs=s' => \$jobs, 'debug' => \$debug, 'appdata' => \$appdata, 'indices' => \$indices, 'version' => \$version, 'reverse' => \$reverse, 'author=s' => \$author, 'package=s' => \$package, 'nogrpkill' => \$nogrpkill, 'logdir=s' => \$logdir );
 
 if ( $version ) {
   print "$0 - version ", $POE::Component::CPANPLUS::YACSmoke::VERSION, "\n";
@@ -158,7 +158,7 @@ sub _kill_log {
 
 sub _kill_flush {
   my ($heap,$wheel_id) = @_[HEAP,ARG0];
-  my $wheel = $heap->{kill_logs}->{wheel};
+  my $wheel = $heap->{kill_logs}->{ $wheel_id }->{wheel};
   my $data = shift @{ $heap->{kill_logs}->{log} };
   unless ( $data ) {
      $wheel->shutdown_input();
