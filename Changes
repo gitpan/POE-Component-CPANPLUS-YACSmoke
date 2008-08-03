@@ -1,6 +1,9 @@
 POE::Component::CPANPLUS::YACSmoke
 ==============================
 
+1.42	Sun Aug  3 21:54:42 BST 2008
+	- I am a muppet. Typo stopped miniyacmoker working.
+
 1.40	Sun Aug  3 08:59:16 BST 2008
 	- Last issue to be fixed with miniyacsmoker
 
