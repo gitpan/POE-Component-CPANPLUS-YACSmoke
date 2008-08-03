@@ -1,6 +1,9 @@
 POE::Component::CPANPLUS::YACSmoke
 ==============================
 
+1.40	Sun Aug  3 08:59:16 BST 2008
+	- Last issue to be fixed with miniyacsmoker
+
 1.38	Sat Aug  2 15:57:07 BST 2008
 	- Fixed some issues with miniyacsmoker and --logdir option
 

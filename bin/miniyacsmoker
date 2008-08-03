@@ -2,7 +2,7 @@
 use strict;
 use File::Spec;
 BEGIN { eval "use Event;"; }
-use POE qw(Component::CPANPLUS::YACSmoke);
+use POE qw(Component::CPANPLUS::YACSmokei Wheel::ReadWrite);
 use Getopt::Long;
 
 $|=1;
