@@ -159,7 +159,7 @@ sub _kill_log {
 sub _kill_flush {
   my ($heap,$wheel_id) = @_[HEAP,ARG0];
   my $wheel = $heap->{kill_logs}->{ $wheel_id }->{wheel};
-  my $data = shift @{ $heap->{kill_logs}->{log} };
+  my $data = shift @{ $heap->{kill_logs}->{ $wheel_id }->{log} };
   unless ( $data ) {
      $wheel->shutdown_input();
      $wheel->shutdown_output();
