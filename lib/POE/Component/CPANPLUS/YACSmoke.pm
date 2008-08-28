@@ -6,7 +6,7 @@ use POE qw(Wheel::Run);
 use Storable;
 use vars qw($VERSION);
 
-$VERSION = '1.44';
+$VERSION = '1.46';
 
 my $GOT_KILLFAM;
 
@@ -279,6 +279,7 @@ sub _sig_child {
   push @{ $self->{_wheel_log} }, "$thing $pid $status";
   warn "$thing $pid $status\n" if $self->{debug};
   $kernel->delay( '_wheel_idle' );
+  delete $self->{_loop_detect};
   my $job = delete $self->{_current_job};
   $job->{status} = $status;
   my $log = delete $self->{_wheel_log};
@@ -349,6 +350,7 @@ sub _spawn_wheel {
 	$job->{global_debug} = delete $self->{debug};
 	$self->{debug} = $job->{debug};
   }
+  $self->{_loop_detect} = 0;
   $self->{_wheel_log} = [ ];
   $self->{_current_job} = $job;
   $job->{PID} = $self->{wheel}->PID();
@@ -375,6 +377,11 @@ sub _wheel_stdout {
   $self->{_wheel_time} = time();
   push @{ $self->{_wheel_log} }, $input;
   warn $input, "\n" if $self->{debug};
+  if ( $self->_detect_loop( $input ) ) {
+    $self->{_current_job}->{excess_kill} = 1;
+    $poe_kernel->yield( '_wheel_kill', 'Killing current run CPAN::Shell loop detected' );
+    return;
+  }
   undef;
 }
 
@@ -388,7 +395,21 @@ sub _wheel_stderr {
   }
   push @{ $self->{_wheel_log} }, $input unless $self->{_current_job}->{cmd} eq 'recent';
   warn $input, "\n" if $self->{debug};
+  if ( $self->_detect_loop( $input ) ) {
+    $self->{_current_job}->{excess_kill} = 1;
+    $poe_kernel->yield( '_wheel_kill', 'Killing current run CPAN::Shell loop detected' );
+    return;
+  }
   undef;
+}
+
+sub _detect_loop {
+  my $self = shift;
+  my $input = shift || return;
+  return unless $input =~ /Select your continent/;
+  $self->{_loop_detect}++;
+  return unless $self->{_loop_detect} > 100;
+  return 1;
 }
 
 sub _wheel_idle {

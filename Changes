@@ -1,6 +1,9 @@
 POE::Component::CPANPLUS::YACSmoke
 ==============================
 
+1.46	Thu Aug 28 16:47:50 BST 2008
+	- Added loop detection, kill early for CPAN:Shell loops now.
+
 1.44	Mon Aug  4 10:01:34 BST 2008
 	- miniyacmoker should write complete kill logs now ( finally ).
 
