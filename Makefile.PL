@@ -13,6 +13,7 @@ requires 'Storable' => 0;
 requires 'POE' => 1.0001;
 requires 'POE::Wheel::Run' => 0;
 requires 'File::Spec' => 0;
+requires 'Digest::MD5' => 0;
 if ( $^O eq 'MSWin32' ) {
   requires 'Win32::Process' => 0;
   requires 'Win32::Job' => 0;

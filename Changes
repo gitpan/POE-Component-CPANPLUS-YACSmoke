@@ -1,6 +1,11 @@
 POE::Component::CPANPLUS::YACSmoke
 ==============================
 
+1.48	Tue Oct  7 14:15:36 BST 2008
+	- Refined the loop detection using md5 checksums for each
+	  line of output. Anything over 300 lines of repeated output
+	  gets killed.
+
 1.46	Thu Aug 28 16:47:50 BST 2008
 	- Added loop detection, kill early for CPAN:Shell loops now.
 

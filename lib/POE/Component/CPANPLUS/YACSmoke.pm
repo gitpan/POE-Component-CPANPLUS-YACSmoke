@@ -4,9 +4,10 @@ use strict;
 use warnings;
 use POE qw(Wheel::Run);
 use Storable;
+use Digest::MD5 qw(md5_hex);
 use vars qw($VERSION);
 
-$VERSION = '1.46';
+$VERSION = '1.48';
 
 my $GOT_KILLFAM;
 
@@ -279,7 +280,7 @@ sub _sig_child {
   push @{ $self->{_wheel_log} }, "$thing $pid $status";
   warn "$thing $pid $status\n" if $self->{debug};
   $kernel->delay( '_wheel_idle' );
-  delete $self->{_loop_detect};
+  delete $self->{_digests};
   my $job = delete $self->{_current_job};
   $job->{status} = $status;
   my $log = delete $self->{_wheel_log};
@@ -350,8 +351,8 @@ sub _spawn_wheel {
 	$job->{global_debug} = delete $self->{debug};
 	$self->{debug} = $job->{debug};
   }
-  $self->{_loop_detect} = 0;
   $self->{_wheel_log} = [ ];
+  $self->{_digests} = { };
   $self->{_current_job} = $job;
   $job->{PID} = $self->{wheel}->PID();
   $job->{start_time} = time();
@@ -406,9 +407,9 @@ sub _wheel_stderr {
 sub _detect_loop {
   my $self = shift;
   my $input = shift || return;
-  return unless $input =~ /Select your continent/;
-  $self->{_loop_detect}++;
-  return unless $self->{_loop_detect} > 100;
+  my $digest = md5_hex( $input );
+  $self->{_digests}->{ $digest }++;
+  return unless ++$self->{_digests}->{ $digest } > 300;
   return 1;
 }
 
