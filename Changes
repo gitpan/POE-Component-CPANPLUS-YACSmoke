@@ -1,6 +1,10 @@
 POE::Component::CPANPLUS::YACSmoke
 ==============================
 
+1.50	Tue Oct  7 14:29:07 BST 2008
+	- Streamlined the loop detection slightly, only issue one 
+	  kill() when we first detect the loop.
+
 1.48	Tue Oct  7 14:15:36 BST 2008
 	- Refined the loop detection using md5 checksums for each
 	  line of output. Anything over 300 lines of repeated output
