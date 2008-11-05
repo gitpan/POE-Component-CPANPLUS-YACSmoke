@@ -1,6 +1,9 @@
 POE::Component::CPANPLUS::YACSmoke
 ==============================
 
+1.52	Wed Nov  5 09:23:05 GMT 2008
+	- miniyacsmoker now sets the environment variable PERL5_MINIYACSMOKER
+
 1.50	Tue Oct  7 14:29:07 BST 2008
 	- Streamlined the loop detection slightly, only issue one 
 	  kill() when we first detect the loop.

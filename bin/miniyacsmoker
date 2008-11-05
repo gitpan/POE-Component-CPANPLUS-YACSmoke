@@ -18,6 +18,7 @@ if ( $version ) {
 }
 
 $ENV{APPDATA} = $appdata if $appdata;
+$ENV{PERL5_MINIYACSMOKER} = $POE::Component::CPANPLUS::YACSmoke::VERSION;
 
 die "'$logdir' doesn\'t exist or isn't a directory\n" if $logdir and not -d $logdir;
 
@@ -250,6 +251,10 @@ Specify a directory location ( it must exist ) where C<miniyacsmoker> will write
 forcefully terminates due to excessive idle or run time.
 
 =back
+
+=head1 ENVIRONMENT
+
+C<miniyacsmoker> sets the environment variable C<PERL5_MINIYACSMOKER> to the version that is running.
 
 =head1 AUTHOR
 
