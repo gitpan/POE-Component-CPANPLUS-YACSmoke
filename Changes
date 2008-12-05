@@ -1,5 +1,8 @@
 POE::Component::CPANPLUS::YACSmoke
-==============================
+==================================
+
+1.54	Fri Dec  5 12:29:08 GMT 2008
+	- Some 'kill' hackery for solaris
 
 1.52	Wed Nov  5 09:23:05 GMT 2008
 	- miniyacsmoker now sets the environment variable PERL5_MINIYACSMOKER

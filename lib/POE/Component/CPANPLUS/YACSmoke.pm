@@ -7,7 +7,7 @@ use Storable;
 use Digest::MD5 qw(md5_hex);
 use vars qw($VERSION);
 
-$VERSION = '1.52';
+$VERSION = '1.54';
 
 my $GOT_KILLFAM;
 
@@ -445,7 +445,12 @@ sub _wheel_kill {
   }
   else {
     if ( !$self->{no_grp_kill} ) {
-      $self->{wheel}->kill(-9) if $self->{wheel};
+      if ( $^O eq 'solaris' ) {
+         kill( 9, '-' . $self->{wheel}->PID() ) if $self->{wheel};
+      }
+      else {
+         $self->{wheel}->kill(-9) if $self->{wheel};
+      }
     }
     elsif ( $GOT_KILLFAM ) {
       _kill_family( 9, $self->{wheel}->PID() ) if $self->{wheel};
