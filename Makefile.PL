@@ -29,4 +29,15 @@ else {
      warn "You already have optional module Proc::ProcessTable installed, skipping dialogue\n";
   }
 }
+
+eval "require IO::Pty";
+if ( $@ ) {
+    requires 'IO::Pty' => 0 if 
+       prompt( 'Do you want to install IO::Pty, it is highly recommended that you do [Y/n]?', 'Y' )
+	 =~ /^Y/i;
+}
+else {
+     warn "You already have IO::Pty installed, excellent.\n";
+}
+
 WriteAll();

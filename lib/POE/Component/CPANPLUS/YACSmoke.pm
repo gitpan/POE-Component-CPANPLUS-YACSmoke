@@ -7,15 +7,21 @@ use Storable;
 use Digest::MD5 qw(md5_hex);
 use vars qw($VERSION);
 
-$VERSION = '1.56';
+$VERSION = '1.58';
 
 my $GOT_KILLFAM;
+my $GOT_PTY;
 
 BEGIN {
 	$GOT_KILLFAM = 0;
 	eval {
 		require Proc::ProcessTable;
 		$GOT_KILLFAM = 1;
+	};
+	$GOT_PTY = 0;
+	eval {
+		require IO::Pty;
+		$GOT_PTY = 1;
 	};
 }
 
@@ -338,6 +344,7 @@ sub _spawn_wheel {
     StderrEvent => '_wheel_stderr',
     ErrorEvent  => '_wheel_error',
     CloseEvent  => '_wheel_close',
+    ( $GOT_PTY and !$self->{no_pty} ? ( Conduit => 'pty-pipe' ) : () ),
   );
   if ( $job->{appdata} ) {
     delete $ENV{APPDATA};
@@ -686,6 +693,7 @@ Spawns a new component session and waits for requests. Takes the following optio
   'perl', which perl executable to use as a default, instead of S^X;
   'appdata', default path where CPANPLUS should look for it's .cpanplus folder;
   'no_grp_kill', set to a true value to disable process group kill;
+  'no_pty', set to a true value to explictly disable pseudo-tty;
 
 Returns a POE::Component::CPANPLUS::YACSmoke object.
 

@@ -1,6 +1,11 @@
 POE::Component::CPANPLUS::YACSmoke
 ==================================
 
+1.58	Thu Dec 18 21:50:11 GMT 2008
+	- Added IO::Pty as a prereq, and we will use Conduit 
+	  'pty-pipe' with POE::Wheel::Run, which solves some
+	   issues with some modules such as ack and Term::ReadKey.
+
 1.56	Thu Dec 18 10:24:47 GMT 2008
 	- Fix for the package|author command-lines, pointed out
 	  by Jos Boumans.
