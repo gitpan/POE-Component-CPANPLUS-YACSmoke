@@ -7,7 +7,7 @@ use Storable;
 use Digest::MD5 qw(md5_hex);
 use vars qw($VERSION);
 
-$VERSION = '1.54';
+$VERSION = '1.56';
 
 my $GOT_KILLFAM;
 
@@ -220,7 +220,7 @@ sub _command {
     }
     else {
 	my $perl = $args->{perl} || $self->{perl} || $^X;
-	my $code = 'my $type = shift; my $search = shift; my $cb = CPANPLUS::Backend->new(); my %mods = map { $_->package() => 1 } map { $_->modules() } $cb->search( type => $type, allow => [ qr/$search/ ], [ verbose => 0 ] ); print qq{$_\n} for sort keys %mods;';
+	my $code = 'my $type = shift; my $search = shift; my $cb = CPANPLUS::Backend->new(); my %mods = map { $_->package() => 1 } map { $_->modules() } $cb->search( type => $type, allow => [ qr/$search/ ], verbose => 0 ); print qq{$_\n} for sort keys %mods;';
 	$args->{program} = [ $perl, '-MCPANPLUS::Backend', '-e', $code, $args->{type} || 'cpanid', $args->{search} ];
     }
   }
@@ -231,7 +231,7 @@ sub _command {
     }
     else {
 	my $perl = $args->{perl} || $self->{perl} || $^X;
-	my $code = 'my $type = shift; my $search = shift; my $cb = CPANPLUS::Backend->new(); my %mods = map { $_->package() => 1 } $cb->search( type => $type, allow => [ qr/$search/ ], [ verbose => 0 ] ); print qq{$_\n} for sort keys %mods;';
+	my $code = 'my $type = shift; my $search = shift; my $cb = CPANPLUS::Backend->new(); my %mods = map { $_->package() => 1 } $cb->search( type => $type, allow => [ qr/$search/ ], verbose => 0 ); print qq{$_\n} for sort keys %mods;';
 	$args->{program} = [ $perl, '-MCPANPLUS::Backend', '-e', $code, $args->{type} || 'package', $args->{search} ];
     }
   }

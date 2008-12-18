@@ -1,6 +1,10 @@
 POE::Component::CPANPLUS::YACSmoke
 ==================================
 
+1.56	Thu Dec 18 10:24:47 GMT 2008
+	- Fix for the package|author command-lines, pointed out
+	  by Jos Boumans.
+
 1.54	Fri Dec  5 12:29:08 GMT 2008
 	- Some 'kill' hackery for solaris
 
