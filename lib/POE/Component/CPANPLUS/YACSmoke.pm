@@ -7,7 +7,7 @@ use Storable;
 use Digest::MD5 qw(md5_hex);
 use vars qw($VERSION);
 
-$VERSION = '1.60';
+$VERSION = '1.62';
 
 my $GOT_KILLFAM;
 my $GOT_PTY;
@@ -165,7 +165,7 @@ sub _command {
 
   $args->{lc $_} = delete $args->{$_} for grep { $_ !~ /^_/ } keys %{ $args };
 
-  my $ref = $kernel->alias_resolve( $args->{session} ) || $sender;
+  my $ref = $args->{session} ? $kernel->alias_resolve( $args->{session} ) : $sender;
   $args->{session} = $ref->ID();
 
   if ( !$args->{module} and $state !~ /^(recent|check|indices|package|author|flush)$/i ) {

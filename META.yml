@@ -23,7 +23,7 @@ no_index:
 provides:
   POE::Component::CPANPLUS::YACSmoke:
     file: lib/POE/Component/CPANPLUS/YACSmoke.pm
-    version: 1.60
+    version: 1.62
 requires:
   Digest::MD5: 0
   File::Spec: 0
@@ -35,4 +35,4 @@ resources:
   homepage: http://github.com/bingos/poe-component-cpanplus-yacsmoke/tree
   license: http://dev.perl.org/licenses/
   repository: git://github.com/bingos/poe-component-cpanplus-yacsmoke.git
-version: 1.60
+version: 1.62
